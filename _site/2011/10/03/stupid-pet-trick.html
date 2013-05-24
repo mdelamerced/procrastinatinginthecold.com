@@ -1,0 +1,61 @@
+<p>As part of every student in physical computing is to complete the stupid pet trick and mine is the "belly monitor".
+
+After some unusual ideas deliberated over in class, I've ended up with a belly monitor that monitors your eating limit. Since this varies from person to person, I've decided to proceed with a two inch velcro bench to attach the device.
+
+I first thought of using a flex sensor and that didn't work. The numbers the felx sensor was giving me is just too random for my taste and it kept falling off the female connector even when I taped it together. Soldering is not a good idea since it may melt the sensor.
+
+I ended up using a large force sensor which I have duct taped to the velcro belt procured from Home Depot.
+
+<a title="stupidpetrick by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6205186638/"><img src="http://farm7.static.flickr.com/6124/6205186638_2286acaa39.jpg" alt="stupidpetrick" width="375" height="500" /></a>
+
+Now that the sensor thing has been sorted out I wanted a portable power source. I connected a 9V battery and that wasn't giving me power or should I say consistent readings as compared to a USB connection
+
+<a title="stupidpetrick by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6204670593/"><img src="http://farm7.static.flickr.com/6130/6204670593_1e37a103e8.jpg" alt="stupidpetrick" width="500" height="375" /></a>
+
+So I dropped that idea.
+
+<a title="stupidpetrick by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6205187426/"><img src="http://farm7.static.flickr.com/6142/6205187426_6b6dfa1762.jpg" alt="stupidpetrick" width="500" height="375" /></a>
+
+I went back to USB power and decided that a sound once you reached your limit would be funny. So I installed a tone beeper thingy or an audio transducer. This now tells you if the device is activated and will slowly increase in tone as you reach the upper limit.
+
+<a title="IMG_2803 by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6204994727/"><img src="http://farm7.static.flickr.com/6138/6204994727_ed0799bfca.jpg" alt="IMG_2803" width="500" height="375" /></a>
+
+I decided to use a smaller breadboard since I wanted it to be as small as possible. There's still space for a battery connection but at the moment this is what I have.
+
+Using the code below, it gave life to my stupid pet trick.
+
+//belly monitor
+ //Melissa A. dela Merced mdm532@nyu.edu
+
+const int ledPin = 7;
+ const int redLED=8;
+ int analogValue=0;
+ int brightness = 0;
+ int flex = analogRead(A1);
+
+void setup(){
+
+Serial.begin(9600);
+ int flex = analogRead(A1);
+ pinMode(redLED,OUTPUT);
+
+}
+
+void loop(){
+ flex = analogRead(A1);
+ analogValue = analogRead(A1);
+ brightness = analogValue/2;
+ Serial.println(flex);
+
+flex = map(flex,0, 200, 255, 0); //sensor
+ flex = min(flex,400);
+ flex = max(flex,0);
+
+analogWrite (redLED,flex);
+ int frequency = map(flex, 0,255,100,1000);
+ tone (5, frequency,10);
+
+}
+
+<object width="560" height="315">
+<param name="movie" value="http://www.youtube.com/v/HPs20sl-69c?version=3&amp;hl=en_US" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed type="application/x-shockwave-flash" width="560" height="315" src="http://www.youtube.com/v/HPs20sl-69c?version=3&amp;hl=en_US" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>

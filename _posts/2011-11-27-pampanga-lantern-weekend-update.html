@@ -1,0 +1,179 @@
+--- 
+meta: {}
+
+published: true
+type: post
+status: publish
+tags: 
+- arduino
+- DanO
+- finals
+- ITP
+- LED
+- PCOMP
+- sparkfun
+title: Pampanga Lantern Weekend update
+layout: post
+---
+<p>I decided not to fly out for Thanksgiving and instead work on my Physical Computing final project. I initially started out Thanksgiving by going through the Muppet Show episodes and getting the Open CV code to work.
+
+My classmate Adria Navarro-Lopez suggested to use the OpenCV library instead of the Open Kinect to make things easier but sadly it was not. I got help from Lisa Park on installing the library and went to work. I got the OpenCV library to detect faces using the example of detecting faces and went through the code and send it out to the arduino via serial.
+
+Processing code for face detection for some reason it only works on Processing 2.0a1 and not 2.0a4:
+
+import processing.serial.<em>;
+ import hypermedia.video.</em>;
+ import java.awt.Rectangle;
+
+Serial myPort;
+ OpenCV opencv;
+
+// contrast/brightness values
+ int contrast<em>value&nbsp;&nbsp;&nbsp; = 0;
+ int brightness</em>value&nbsp; = 0;
+ String facesFound [];
+
+void setup() {
+ &nbsp; size(320, 240);
+ &nbsp; println(Serial.list());
+ &nbsp; //&nbsp; String portName = Serial.list()[0];
+ &nbsp; myPort = new Serial(this, Serial.list()[0], 9600);
+ &nbsp; opencv = new OpenCV(this);
+ &nbsp; opencv.capture(width, height);
+ &nbsp; opencv.cascade( OpenCV.CASCADE<em>FRONTALFACE</em>ALT );
+ }
+
+public void stop() {
+ &nbsp; opencv.stop();
+ &nbsp; super.stop();
+ }
+
+void draw() {
+
+&nbsp; // grab a new frame
+ &nbsp; // and convert to gray
+ &nbsp; opencv.read();
+ &nbsp; opencv.convert( GRAY );
+ &nbsp; opencv.contrast( contrast<em>value );
+ &nbsp; opencv.brightness( brightness</em>value );
+
+&nbsp; // proceed detection
+ &nbsp; Rectangle[] faces = opencv.detect( 1.2, 2, OpenCV.HAAR<em>DO</em>CANNY_PRUNING, 40, 40 );
+
+&nbsp; // display the image
+ &nbsp; image( opencv.image(), 0, 0 );
+
+&nbsp; // draw face area(s)
+ &nbsp; noFill();
+ &nbsp; stroke(255, 0, 0);
+
+&nbsp; for ( int i=0; i&lt;faces.length; i++ ) {
+ &nbsp;&nbsp;&nbsp; rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height );
+ &nbsp; }
+ &nbsp; //count number of faces and send to arduino
+ &nbsp; println(faces.length);
+ &nbsp; //facesFound=faces.length;
+ &nbsp; // myPort.write(facesFound);
+ &nbsp; myPort.write(faces.length);
+ }
+
+/<em>*
+ &nbsp;</em> Changes contrast/brigthness values
+ &nbsp;*/
+ void mouseDragged() {
+ &nbsp; contrast<em>value&nbsp;&nbsp; = (int) map( mouseX, 0, width, -128, 128 );
+ &nbsp; brightness</em>value = (int) map( mouseY, 0, width, -128, 128 );
+ }
+
+The main problem I encountered was stabilizing the response of the arduino, The LED would flicker in response and not exactly the way I wanted. But the code was running the way I wanted it. It was the same problem my media controller group had encounted with the blue LED.
+
+Arduino code for receiving:
+
+//arduino code for lantern
+ //Melissa dela Merced mdm532@nyu.edu
+
+const int bluePin=11;
+ const int greenPin=10;
+ const int whitePin=9;
+ const int yellowPin= 6;
+ const int redPin= 5;
+
+int value = 0;
+
+void setup(){
+ &nbsp; Serial.begin(9600);
+
+&nbsp; pinMode(redPin, OUTPUT); //red LED
+ &nbsp; pinMode(yellowPin, OUTPUT); //yellow LED
+ &nbsp; pinMode(whitePin,OUTPUT); // white LED
+ &nbsp; pinMode(bluePin,OUTPUT); // blue LED
+ &nbsp; pinMode(greenPin,OUTPUT);//green LED
+ }
+ void loop(){
+ &nbsp;// if (Serial.available){
+ &nbsp;&nbsp;&nbsp; int input = Serial.read();
+ &nbsp; if (input == 0);
+ &nbsp; {
+ &nbsp;&nbsp;&nbsp; digitalWrite(bluePin, LOW);
+ &nbsp;&nbsp;&nbsp; digitalWrite(redPin, LOW);
+ &nbsp;&nbsp;&nbsp; digitalWrite(yellowPin, LOW);
+ &nbsp;&nbsp;&nbsp; digitalWrite(whitePin, LOW);
+ &nbsp;&nbsp;&nbsp; digitalWrite(greenPin,LOW);
+ &nbsp; }
+
+&nbsp; if (input ==1){
+ &nbsp;&nbsp;&nbsp; digitalWrite(bluePin, HIGH);
+ &nbsp;&nbsp;&nbsp; /<em>&nbsp;&nbsp; Serial.write(input);
+ &nbsp;&nbsp;&nbsp;&nbsp; for(value=0; value &lt;=255; value++){
+ &nbsp;&nbsp;&nbsp;&nbsp; analogWrite(bluePin, value);
+ &nbsp;&nbsp;&nbsp;&nbsp; delay(10);
+ &nbsp;&nbsp;&nbsp;&nbsp; }</em>/
+ &nbsp; }
+ &nbsp; /* else{
+ &nbsp;&nbsp; digitalWrite(bluePin, LOW);
+ &nbsp;&nbsp; digitalWrite(redPin, LOW);
+ &nbsp;&nbsp; digitalWrite(yellowPin, LOW);
+ &nbsp;&nbsp; digitalWrite(whitePin, LOW);
+ &nbsp;&nbsp; digitalWrite(greenPin,LOW);
+ &nbsp;&nbsp;
+ &nbsp;&nbsp; }<em>/
+ &nbsp; if (input ==2){
+ &nbsp;&nbsp;&nbsp; digitalWrite(bluePin,HIGH);
+ &nbsp;&nbsp;&nbsp; digitalWrite(whitePin,HIGH);
+ &nbsp; }
+ &nbsp; /</em>else {
+ &nbsp;&nbsp; digitalWrite(redPin, LOW);
+ &nbsp;&nbsp; digitalWrite(yellowPin, LOW);
+ &nbsp;&nbsp; digitalWrite(whitePin, LOW);
+ &nbsp;&nbsp; }*/
+ }
+ void establishContact() {
+ &nbsp; while (Serial.available() &lt;= 0) {
+ &nbsp;&nbsp;&nbsp; Serial.println("hello");&nbsp;&nbsp; // send a starting message
+ &nbsp;&nbsp;&nbsp; delay(300);
+ &nbsp; }
+ }
+
+I'll still work on this code next week. I probably just need a capacitor or something on the LEDs to smooth out the signals.
+
+I took advantage of the O'Reilly book sales, I picked up a number of books, namely Making things Talk by NYU Professor Tom Igoe, Arduino Cookbook and the Making Arduino Bots and Gadgets. In between coding, I would either finish drilling the LED holes in my template and reading the three books. Insert the Steve Jobs bio by Walter Issacson for a little inspiration.
+
+I even went through learning using the matrix if that would help.
+
+<a title="pcompLED by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6412955921/"><img src="http://farm7.staticflickr.com/6092/6412955921_e998160e49_z.jpg" alt="pcompLED" width="640" height="480" /></a>
+
+I went through figuring the resistor array that I would have to build and found this great web site to even design the array for you.
+
+&nbsp;
+
+<img src="http://itp.nyu.edu/~mdm532/blog/wp-content/uploads/2011/11/FirefoxScreenSnapz002.jpg" alt="" width="489" height="566" />
+
+But that didn't help. So right before the Stanford-Notre Dame game on Saturday night, I went for the temp sensor. Using the temp sensor was stable and works like a charm. But the weather has been great today so the LED remains at the great weather reading.
+
+In this scenario I'm using a RHT03 Humidity and Temperature Sensor from <a href="http://www.sparkfun.com/products/10167" target="_blank">Sparkfun </a>. The RHT03 is similar to the DHT22 sensor so I installed the library made by github user <a href="https://github.com/nethoncho/Arduino-DHT22" target="_blank">nethoncho</a> and it releases the temperature in celcius.
+
+<img src="http://itp.nyu.edu/~mdm532/blog/wp-content/uploads/2011/11/ArduinoScreenSnapz002.jpg" alt="" width="1204" height="602" />
+
+More to come.
+
+<a title="pcompLED by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6412958745/"><img src="http://farm8.staticflickr.com/7035/6412958745_f5bed0b908_z.jpg" alt="pcompLED" width="640" height="478" /></a></p>

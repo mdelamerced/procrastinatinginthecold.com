@@ -1,0 +1,39 @@
+--- 
+meta: {}
+
+published: true
+type: post
+status: publish
+tags: 
+- Computational Cameras
+- ITP
+- kinect
+- NYU
+title: Kinect Hand Tracking
+layout: post
+---
+<p>It's very unique that a single camera can essentially do two things. It's far from perfect but it's still a joy to work with. The Xbox Kinect is actually two cameras put together. A "traditional" RGB camera and an infrared camera assembled side by side.  Due to the assembly of the camera, what you see in one lens is not the same as the other due to a parallax effect where the cameras are not displaying the exact same image. Most notably a less than 1 cm gap between the two cameras.
+
+What makes this unique is the ability of the kinect to detect depth via the IR camera. As the kinect projects infrared light, this can be seen by the IR camera and return values that measure depth or distance of an object in front of it.
+
+For the first week in Computational Cameras is to work with the depth camera and see what things we can do with it.
+
+Based on the OpenNI framework and using the Processing library we are able to track our hand with the Kinect as seen with the red dot.
+
+<iframe width="500" height="281" src="http://player.vimeo.com/video/35781451?title=0&amp;byline=0&amp;portrait=0" frameborder="0"></iframe>
+
+Notice that when my hand turns black, the Kinect is technically, unable to see my hand. The dot follows my right hand even when I put it down and extend my left hand. However I can pick up the dot with my left and pass it on.
+
+What if we use a shape?
+
+For this example I decided to use a katamari.
+
+I decided to use an SVG file instead of the traditional image file due to it's ability to keep it's resolution when scaled. I assume the properties are the same when using the PImage command as well.
+
+It was simple enough to call the katamari into the sketch and behaves the same way as the dot. But seeing the katamari in gray isn't fun. So I activated the RGB camera and put them side by side.
+
+Notice on how the image goes beyond the frame of the IR camera but still visible in the entire sketch.
+
+And by putting the two together. I seems like magic! I wish this was real that the katamari would roll up the mess in my room.
+
+Next up. I want to put more objects that I can interact with and manipulate in multiple screens.</p>

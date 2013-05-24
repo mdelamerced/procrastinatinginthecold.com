@@ -1,0 +1,180 @@
+<p>This week Kim Ash and I worked together on the skeletal tracking of the Kinect using OpenNI. The idea is when you reach a pose, a "nuclear" explosion occurs. Using the code sample from ITP Resident Greg Borenstien's book "Making Things See, 2011", it was fairly straightforward enough to get the skeletal tracking in place.
+
+We wanted the explosion to occur once the two outstretched arms were in place.
+
+<a href="http://www.flickr.com/photos/mdelamerced/6817688485/" title="skeletal tracking by mdelamerced, on Flickr"><img src="http://farm8.staticflickr.com/7004/6817688485_515f48db6c.jpg" width="500" height="392" alt="skeletal tracking"></a>
+
+In this image, we just wanted to track the arms. This is possible using the OpenNI commands:</p><pre>
+<code>  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHand);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW, rightElbow);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER, rightShoulder);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER, leftShoulder);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_ELBOW, leftElbow);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHand);
+</code>
+</pre><p>Then by using an "if" statement, it was just measuring the position of the joints that would give the outstretched arms pose.</p><pre>
+<code>
+if (rightElbow.y > rightShoulder.y &amp;&amp; rightElbow.x > rightShoulder.x &amp;&amp; leftElbow.y > leftShoulder.y &amp;&amp; leftElbow.x > leftShoulder.x) {
+        stroke(255);
+      }
+      else {
+         tint(255, 255);
+         image(cloud, 840, 130, 206, 283);
+         explosion.play();
+       // stroke(255, 0, 0);
+      }
+      kinect.drawLimb(userId, SimpleOpenNI.SKEL<em>RIGHT</em>SHOULDER, SimpleOpenNI.SKEL<em>RIGHT</em>ELBOW);
+      kinect.drawLimb(userId, SimpleOpenNI.SKEL<em>LEFT</em>SHOULDER, SimpleOpenNI.SKEL<em>LEFT</em>ELBOW);
+  // right hand above right elbow
+  // AND
+  // right hand right of right elbow
+  if (rightHand.y &gt; rightElbow.y &amp;&amp; rightHand.x &gt; rightElbow.x &amp;&amp; leftHand.y &gt; leftElbow.y &amp;&amp; leftHand.x &gt; leftElbow.x) {
+    stroke(255);
+  }
+  else {
+     tint(255, 255);
+     image(cloud, 840, 130, 206, 283);
+     explosion.play();
+ //   stroke(255, 0, 0);
+  }
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HAND, SimpleOpenNI.SKEL_RIGHT_ELBOW);
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_ELBOW);
+}
+</code>
+</pre><p>Which results in this:
+
+<iframe src="http://player.vimeo.com/video/36170464?title=0&amp;byline=0&amp;portrait=0" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+We wanted a better screen capture but for some reason this sketch didn't like Ambrosia's SnapzPro.
+
+Full code:</p><pre>
+<code> 
+
+import ddf.minim.<em>;
+import ddf.minim.signals.</em>;
+import ddf.minim.analysis.<em>;
+import ddf.minim.effects.</em>;
+
+Minim minim;
+AudioPlayer explosion;
+
+import SimpleOpenNI.*;
+SimpleOpenNI kinect;
+PImage back;
+PImage cloud;
+
+void setup() {
+  size(640*2, 480);
+  back = loadImage("desert.png");
+  cloud = loadImage("cloud.png");
+ // imageMode(CENTER);
+
+minim = new Minim(this);
+  explosion = minim.loadFile("explosion.mp3");
+
+kinect = new SimpleOpenNI(this);
+  kinect.enableDepth();
+  kinect.enableRGB();
+  kinect.enableUser(SimpleOpenNI.SKEL<em>PROFILE</em>ALL);
+  strokeWeight(5);
+}
+
+void draw() {
+  background(0);
+  kinect.update();
+  image(kinect.depthImage(), 0, 0);
+  // image(kinect.rgbImage(),640,0);
+  image(back, 640, 0, 640, 480);
+
+IntVector userList = new IntVector();
+  kinect.getUsers(userList);
+  if (userList.size() > 0) {
+    int userId = userList.get(0);
+    if ( kinect.isTrackingSkeleton(userId)) {
+      PVector rightHand = new PVector();
+      PVector rightElbow = new PVector();
+      PVector rightShoulder = new PVector();
+      PVector leftHand = new PVector();
+      PVector leftElbow = new PVector();
+      PVector leftShoulder = new PVector();
+ kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHand);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW, rightElbow);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER, rightShoulder);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER, leftShoulder);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_ELBOW, leftElbow);
+  kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHand);
+
+  // right elbow above right shoulder
+  // AND
+  // right elbow right of right shoulder
+  if (rightElbow.y &gt; rightShoulder.y &amp;&amp; rightElbow.x &gt; rightShoulder.x &amp;&amp; leftElbow.y &gt; leftShoulder.y &amp;&amp; leftElbow.x &gt; leftShoulder.x) {
+    stroke(255);
+  }
+  else {
+     tint(255, 255);
+     image(cloud, 840, 130, 206, 283);
+     explosion.play();
+   // stroke(255, 0, 0);
+  }
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER, SimpleOpenNI.SKEL_RIGHT_ELBOW);
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER, SimpleOpenNI.SKEL_LEFT_ELBOW);
+
+  // right hand above right elbow
+  // AND
+  // right hand right of right elbow
+  if (rightHand.y &gt; rightElbow.y &amp;&amp; rightHand.x &gt; rightElbow.x &amp;&amp; leftHand.y &gt; leftElbow.y &amp;&amp; leftHand.x &gt; leftElbow.x) {
+    stroke(255);
+  }
+  else {
+     tint(255, 255);
+     image(cloud, 840, 130, 206, 283);
+     explosion.play();
+ //   stroke(255, 0, 0);
+  }
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HAND, SimpleOpenNI.SKEL_RIGHT_ELBOW);
+  kinect.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_ELBOW);
+}
+
+}
+}
+
+// user-tracking callbacks!
+void onNewUser(int userId) {
+  println("start pose detection");
+  kinect.startPoseDetection("Psi", userId);
+}
+
+void onEndCalibration(int userId, boolean successful) {
+  if (successful) {
+    println(" User calibrated !!!");
+    kinect.startTrackingSkeleton(userId);
+  }
+  else {
+    println(" Failed to calibrate user !!!");
+    kinect.startPoseDetection("Psi", userId);
+  }
+}
+
+void onStartPose(String pose, int userId) {
+  println("Started pose for user");
+  kinect.stopPoseDetection(userId);
+  kinect.requestCalibrationSkeleton(userId, true);
+}
+
+void keyPressed() {
+
+switch(key)
+  {
+  case ' ':
+    kinect.setMirror(!kinect.mirror());
+    break;
+  }
+}
+
+void close () {
+ explosion.close();
+ minim.stop();
+ super.stop();
+}
+</code>
+</pre>

@@ -1,0 +1,156 @@
+<p><a title="augmentedcards by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6870056246/"><img src="http://farm7.staticflickr.com/6051/6870056246_1c071d5081.jpg" alt="augmentedcards" width="500" height="332" /></a>
+
+While most everyone is using Junaio I decided to use the AR toolkit instead. I wanted to make something like magnetic letters on a refrigerator. I got the idea for this in church where each code represents a word.
+
+One of the first things I encountered was the words were coming out in reverse. Even though I've already used the pushMatrix and popMatrix command in Processing 2.04a, the video now mirrored me, but the text was still in reverse. I attribute this to a bug but I'm not so sure. To solve this annoying problem, I projected the sketch to the wall and reverse projected it. Thus the letters finally came out the right way.
+
+I just used a short phrase composing of 8 words, but the current library does not allow the same AR image to be repeated twice. Or I may need to fiddle with the code some more.
+
+Putting the AR cards side by side gives me a phrase.
+
+<a title="augmentedcards by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6870056320/"><img src="http://farm8.staticflickr.com/7094/6870056320_22cb20af1a.jpg" alt="augmentedcards" width="500" height="332" /></a>
+
+What could this secret messgae mean?
+
+<a title="augmentedcards by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6870056420/"><img src="http://farm7.staticflickr.com/6118/6870056420_92e4ed8de2.jpg" alt="augmentedcards" width="500" height="332" /></a>
+
+This may give me an idea for the final project if I plan to expand this.
+
+<code>import processing.video.*;
+
+// Processing 2.04a + NyARToolkit 1.1.7 
+//pared down from Amnon Owed http://www.creativeapplications.net/processing/augmented-reality-with-processing-tutorial-processing/
+
+import java.io.*; // for the loadPatternFilenames() function 
+import processing.opengl.*; // for OPENGL rendering 
+import jp.nyatla.nyar4psg.*; // the NyARToolkit Processing library
+
+PFont myFont;
+String the ="there";
+String is ="is";
+String no ="no";
+String id ="I";
+String there ="there";
+String is2 ="is";
+String only ="only";
+String us ="us";
+
+
+Capture cam; 
+MultiMarker nya;
+
+void setup() {
+
+  size(640, 480, OPENGL); 
+  myFont=loadFont("Helvetica-48.vlw");
+  cam = new Capture(this, 640, 480); 
+  cam.start(); 
+  frameRate(15);
+
+  // create a new MultiMarker at a specific resolution (arWidth x arHeight), with the default camera calibration and coordinate system
+  nya = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_DEFAULT);
+  // set the delay after which a lost marker is no longer displayed. by default set to something higher, but here manually set to immediate.
+  //nya.setLostDelay(1);
+
+  nya.addARMarker("4x4_1.patt", 80);  //your have to print out the cooresponding pdf file and put the .patt files in data folder
+  nya.addARMarker("4x4_2.patt", 80);
+  nya.addARMarker("4x4_3.patt", 80);
+  nya.addARMarker("4x4_4.patt", 80);
+  nya.addARMarker("4x4_5.patt", 80);
+  nya.addARMarker("4x4_6.patt", 80);
+  nya.addARMarker("4x4_7.patt", 80);
+  nya.addARMarker("4x4_8.patt", 80);
+}
+
+void draw() {
+
+  background(255); // a background call is needed for correct display of the marker results
+  cam.read();
+  //image(cam, 0, 0, width, height); // display the image at the width and height of the sketch window
+  // flip image horizonatlly
+  pushMatrix();
+  scale(-1, 1);
+  translate(-cam.width, 0);
+ // image(cam, 0, 0, width, height); 
+  popMatrix();
+// pushMatrix();
+ // scale(-1,0);
+  nya.detect(cam); // detect markers in the input image at the correct resolution (incorrect resolution will give assertion error)
+  
+  if (nya.isExistMarker(0)) {
+    setMatrix(nya.getMarkerMatrix(0));  //use this marker to translate and rotate the processing drawing
+    translate(0, 0); //offset half the size of the cube.
+    fill(0);
+    textFont(myFont, 24);
+    text(the, 0, 0);
+  }
+  perspective();
+  if (nya.isExistMarker(1)) {
+    setMatrix(nya.getMarkerMatrix(1));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(is, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(2)) {
+    setMatrix(nya.getMarkerMatrix(2));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(no, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(3)) {
+    setMatrix(nya.getMarkerMatrix(3));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(id, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(4)) {
+    setMatrix(nya.getMarkerMatrix(4));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(there, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(5)) {
+    setMatrix(nya.getMarkerMatrix(5));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(is2, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(6)) {
+    setMatrix(nya.getMarkerMatrix(6));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(only, 0, 0);
+   
+  }
+  perspective();
+  if (nya.isExistMarker(7)) {
+    setMatrix(nya.getMarkerMatrix(7));
+    translate(0, 0); 
+    fill(0);
+     textFont(myFont, 24);
+    text(us, 0, 0);
+   
+  }
+// popMatrix();
+} 
+</code>
+
+http://vimeo.com/39171707
+
+http://www.youtube.com/watch?v=Y0Ye7ODytIM</p>
