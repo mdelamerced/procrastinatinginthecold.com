@@ -1,0 +1,84 @@
+<p>&nbsp;
+
+Sooo my last idea didn't exactly fly but that's the way it is here. My classmates instead gave me better ideas to make this more interesting. One that resonated was suggested by Lisa Park that I should look at the work of installation artist <a href="http://en.wikipedia.org/wiki/Olafur_Eliasson" target="_blank">Olafur Eliasson</a> and his installation work in London called the Weather Project.
+
+<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/60/OlafurEliasson_TheWeatherProject.jpg/400px-OlafurEliasson_TheWeatherProject.jpg" alt="The Weather Project" width="400" height="600" />
+
+This now inspired me to make something smaller using ordinary light bulbs and AC power. By using a servo motor to control an dimmer switch found at Lowes or Home Depot to control the brightness of the lamp.
+
+I then started designing the lamp itself. By using 6 x 60w bulbs hanging overhead.
+
+<img src="http://farm7.staticflickr.com/6047/6384136367_aaf7b5e5c7_z.jpg" alt="" width="640" height="478" />
+
+<img src="http://farm7.staticflickr.com/6048/6384136727_40ebee2fc2_z.jpg" alt="" width="640" height="478" />
+
+But then the lamp looked too ordinary. I felt like I could buy something in Ikea and it would still be better than anything I would make. I wanted to use a lamp that my family makes, but unfortunately none are in the country right now.
+
+<img src="http://www.demexrattan.com/images/lamps/new_lamps_nina.jpg" alt="" width="520" height="340" />
+
+While talking to my brother and sister, they gave me the idea of using shells.
+
+<img src="http://farm3.staticflickr.com/2316/2177504143_aab95996f0_z.jpg" alt="Photo by flickr user Beth (Nautilus Shell Studios) under a CC BY 2.0 License" width="640" height="480" />
+
+Photo by flickr user Beth (Nautilus Shell Studios) under a CC BY 2.0 License
+
+These are abundant in the Philippines but I don't have the time to procure them at this time. I'm just making my sister bring a bunch that I can use for future project.
+
+So then I finally settled on a Pampanga Lantern.
+
+<img src="http://farm5.staticflickr.com/4034/4393524602_8a2a5c37cb_z.jpg" alt="" width="640" height="427" />
+
+Photo by flickr user dementia under a BY-NA-SA-2.0 Creative Commons license.
+
+The Pampanga lantern has Christian significance. A spin off of the more traditional "parol" or Christmas lantern, this symbolizes the star that led the three wise men to the Baby Jesus. This version is made from the Province of Pampanga in the Philippines and is only manufactured for the holidays. Each array of lights are controlled in a sequence and a parade is held every year displaying various designs from different provinces. These can lanterns can be from the size of a plate to twenty feet. The one displayed here took a year to make.
+
+<object width="560" height="315">
+<param name="movie" value="http://www.youtube.com/v/yE1xixUQkkw?version=3&amp;hl=en_US" /><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><embed type="application/x-shockwave-flash" width="560" height="315" src="http://www.youtube.com/v/yE1xixUQkkw?version=3&amp;hl=en_US" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+
+As far as I know, they don't use Arduinos to power this.
+
+So now I've decided to make mine a lantern.
+
+<img src="http://farm7.staticflickr.com/6099/6384136983_ee3d72ff31_z.jpg" alt="" width="640" height="478" />
+
+I wanted to make it the traditional way by using either stiff wire or wood to build the frame and wrap paper around it. But after an afternoon of bending wire to my will, I was quickly frustrated at the slow pace and difficulty in handling 16 gauge wire. While at chuch I had the insanely great idea of using a laser cutter. DUH!
+
+So an afternoon of hanging in the shop and talking to Tak Cheung and Oya Kosebay gave great fabrication ideas on how to build it.
+
+<img src="http://farm7.staticflickr.com/6116/6384137489_15213ac3d0_z.jpg" alt="" width="640" height="478" />
+
+I went home and designed the pattern on illustrator for the laser cutter and came up with this.
+
+<img src="http://farm7.staticflickr.com/6034/6384134287_eec75251af_z.jpg" alt="" width="640" height="602" />
+
+A Saturday trip to Canal Plastics and picked me up a 1/8" 1' x 2' acrylic sheet of transparent plastic and headed to the lab where Jackson and Michael Columbo helped with the laser cutter as well as conforming my pattern to the laser cutter. <span style="color: #ff0000;">For future reference laser people, make sure your design is inside the 1' x 2' dimension of the material/ laser cutter. Like really in there with a border. Think of it as a safe area.</span>
+
+<img src="http://farm7.staticflickr.com/6236/6384134605_943239dd30_z.jpg" alt="" width="640" height="478" />
+
+After roughly an hour.
+
+<img src="http://farm7.staticflickr.com/6094/6384135123_635e0d16b5_z.jpg" alt="" width="640" height="478" />
+
+Now the holes I originally designed were too small now for LEDs to pass through so I has to use a hand drill with a 1/8" bit for the LED pins to fit through. Lesson learned. But at the same thing it gave me practice on using a hand drill while watching PAC12 footbal over the weekend. Go Trojans!!
+
+<img src="http://farm7.staticflickr.com/6238/6384136113_ac056ba9ee_z.jpg" alt="" width="640" height="478" />
+
+Now for the wiring and / programming part. I'm planning to use copper tape and the wiring board in a separate device which will hang from the ceiling and basically just keep the lights on the board. I've etched the colors as well and will use paper to cover it and diffuse the light. Think of it like the USS Enterprise saucer section but hanging on the wall.
+
+<img src="http://images.wikia.com/memoryalpha/en/images/4/4b/USS_Enterprise-D,_These_Are_the_Voyages.jpg" alt="" width="800" height="450" />
+
+Photo copywright of Paramount Pictures
+
+I'm thinking of being able to switch between two sensors or one or whichever works. I'm currently in possesion of the <a href="http://www.sparkfun.com/products/10167" target="_blank">humidity and temperature sensor RHT03</a> from sparkfun instead of a thermistor. Using a wonderful library available on the arduino <a href="http://arduino.cc/playground/Main/DHTLib" target="_blank">website</a> it maps the RHT03 the same way. It's technically a digital sensor so it's pretty much straightforward.
+
+To measure person presence, an infrared sensor would be perfect but I've spent my money on LEDs then the kinect happened.
+
+Yes the Xbox Kinect that was once a toy and now a hackers device and something I already have. I just plan on using processing to get the serial data from the IR cam of the kinect using the Open Kinect library since I don't really need to map out a person at this time over the OpenNI library and send that data to the arduino to measure people presence.
+
+The other option is to use the current data that I'm getting from my ICM project final which gets the weather from the <a href="http://developer.yahoo.com/weather/#channel" target="_blank">Yahoo Weather API </a>and send it serial to the arduino.
+
+It's something to work on the holidays before the big cruch for December. Hopefully I'll be finished with most of this weekend and Happy Holidays!
+
+&nbsp;
+
+&nbsp;</p>

@@ -1,0 +1,15 @@
+<p>I have no name for this as of yet but over the past few weeks I've been trying to recreate what I built five years ago. Sadly through the updates that Apple has made, it is no longer possible with their technology. Streaming video from one place to another seems simple enough and is actually simpler today than it was when I was building it. But getting it to place nice with Java is another thing completely.
+
+I was using both VLC and QuickTime Broadcaster to broadcast video from one place to another without the aid of a server to be imported into a Processing applet and that didn't turn out too well. Apple has discontinued further development on QuickTime for Java in lieu of AVFoundation. So the Quicktime that we all grew up with no longer exists. the core of AVFoundation is used to run movies in iOS, iMovie and FCPX which is why iMovie runs faster and somewhat better than FCP 7. Oh the pains of 64 bit processing.
+
+The QT Broadcast stream, though encoded in MotionJPEG which Java recognizes, still starts with a QT header. Thus when the stream is imported into the sketch, it will not recognize it as a MotionJPEG file but as a QT streaming file. This would require a decoder to transcode it into MotionJPEG that Java accepts.
+
+Installing a Lion server will not help. I learned that the hard way.
+
+So currently I'm using an application called <a href="http://www.evological.com/" target="_blank">EvoCam</a>. It's a standalone software that recognizes practically any camera I plug in and allows a ton of options. From motion capture recording/ streaming video to grabbing stills and sending them through applescript or automator workflow. I've been having ftp connectivity issues to the ITP server so I'm uploading this to my personal site. So far it's been working great save for the times of me getting disconnected on the remote end for some reason or another.
+
+<img src="http://homepage.mac.com/mdelamerced/uploads/webcam.jpg" alt="remote still" width="640" height="480" />
+
+Refresh the page to get the latest image.
+
+Once the image was finally free on the web it was easy enough to access the code in Processing. I've always wanted a holodeck no matter how crude it may be. I think the fact that you are walking through a given space that changes would change on how we would interact with man made images or environments. So this is a very crude version of how I would imagine things. More updates to come.</p>

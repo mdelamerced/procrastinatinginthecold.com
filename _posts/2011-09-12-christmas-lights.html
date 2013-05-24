@@ -1,0 +1,96 @@
+--- 
+meta: {}
+
+published: true
+type: post
+status: publish
+tags: 
+- arduino
+- blink
+- ITP
+- LED
+- PCOMP
+title: Christmas lights
+layout: post
+---
+<p>There's satisfaction to be had in watching lights blink especially when those lights turn on by your command.
+
+<a title="greenredlight by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6139118358/"><img src="http://farm7.static.flickr.com/6200/6139118358_ed1ec5a6c7.jpg" alt="greenredlight" width="500" height="375" /></a>
+
+<iframe width="560" height="345" src="http://www.youtube.com/embed/x4iPj8kI0pM" frameborder="0"></iframe>
+
+The code is relatively simple enough now that I've had the weekend to digest the meaning of all these pins and ports.
+
+//double lights green light and red light
+ void setup(){
+ pinMode(3,INPUT); //SWITCH
+ pinMode(5,OUTPUT);
+ pinMode(4,OUTPUT);
+ }
+ void loop(){
+ // if (digitalRead(3) == true) {
+ digitalWrite(5,true);
+ digitalWrite(4,false);
+ delay(500);
+ //}
+ // else {
+ digitalWrite(5, false);
+ digitalWrite(4, true);
+ delay (500);
+ //   }
+ }
+
+Using the same setup but different program and allowing the "if"s and "else" commands, this tells the chip to perfrom an action that will respond differently. In this case, when the switch is pressed the light will either be switched between red and green.
+
+&nbsp;<iframe width="560" height="345" src="http://www.youtube.com/embed/cmx7ER2hOk8" frameborder="0"></iframe>
+
+Feeling a little bold, I added more lights.
+
+<a title="Trying something out by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6139130738/"><img src="http://farm7.static.flickr.com/6079/6139130738_b26336ac6f.jpg" alt="Trying something out" width="374" height="500" /></a>
+
+I wanted to get the switch to cascade the lights using the code below but it seemed that it wasn't reacting to the switch and thus acting on switching the lights on it's own. I'll work on it some more.
+
+//christmas lights
+void setup(){
+&nbsp; pinMode(9,INPUT); //SWITCH
+&nbsp; pinMode(2,OUTPUT);
+&nbsp; pinMode(3,OUTPUT);
+&nbsp; pinMode(4,OUTPUT);
+&nbsp; pinMode(5,OUTPUT);
+&nbsp; pinMode(6,OUTPUT);
+&nbsp; pinMode(7,OUTPUT);
+&nbsp;// pinMode(8,OUTPUT);
+}
+void loop(){
+&nbsp; if (digitalRead(9) == true &amp;&amp; digitalRead(2) ==true){
+&nbsp;&nbsp;&nbsp; digitalWrite (2, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (3, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (4, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp;&nbsp; digitalWrite (5, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (6, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (7, true);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp; // digitalWrite (8, true);
+&nbsp; //&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; //digitalWrite (8, false);
+&nbsp;&nbsp;&nbsp; //delay(1000);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; digitalWrite (7, false);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (6, false);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (5, false);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp;&nbsp; digitalWrite (4, false);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (3, false);
+&nbsp;&nbsp;&nbsp; delay(1000);
+&nbsp;&nbsp;&nbsp; digitalWrite (2, false);
+&nbsp; }
+}
+
+&nbsp;</p>

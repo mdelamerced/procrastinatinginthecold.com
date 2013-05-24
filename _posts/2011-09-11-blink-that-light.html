@@ -1,0 +1,73 @@
+--- 
+meta: {}
+
+published: true
+type: post
+status: publish
+tags: 
+- arduino
+- blink
+- DanO
+- homework
+- ITP
+- kaboom
+- LED
+- osullivan
+- PCOMP
+- USB
+title: Blink that light
+layout: post
+---
+<p>We don't give it much thought when we turn on a light bulb. For us it's just a flick of the switch and that's it! So it shouldn't be too much trouble. Or could it?
+
+I picked up the ITP PCOMP kit at the NYU Computer Store for around $93 including taxes. Inside it's a box of chips, LEDs, wires, boards, cables and so on to supposedly help me make magic.
+
+<a title="openbox by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130996320/"><img src="http://farm7.static.flickr.com/6089/6130996320_154ff14c54.jpg" alt="openbox" width="500" height="374" /></a>
+
+<a title="boxcontents by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130447469/"><img src="http://farm7.static.flickr.com/6200/6130447469_9dba94080f.jpg" alt="boxcontents" width="500" height="374" /></a>
+
+<a title="blankslate by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130447611/"><img src="http://farm7.static.flickr.com/6186/6130447611_40603454b2.jpg" alt="blankslate" width="500" height="374" /></a>
+
+First thing to setup is the breadboard (that white thing above) and the arduino board to the plastic mounting. You'll need screws for the arduino but the breadboard has doublesided tape.
+
+<strong>GET THAT THING TO LIGHT UP</strong>
+
+No switches or anything just power up the LED using the microcontroller via USB power. Even if the kit comes with a 9V adapter, I think it's safer using USB. You can't accidentally burn out the circuits as the computer will automatically turn off the port if it detects a short.
+
+<a title="firstwire by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130447781/"><img src="http://farm7.static.flickr.com/6065/6130447781_d771ec9473.jpg" alt="firstwire" width="500" height="374" /></a>
+
+What's wrong with this picture?
+
+The board via the PWR lead as marked by the red wire and inserted a resistor and a green LED. Obviously this wouldn't work since the breadboard isn't powered and there's no way that the digital lead is going to provide power to the board.
+
+<a title="usbplugin by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130996582/"><img src="http://farm7.static.flickr.com/6083/6130996582_03b849bb95.jpg" alt="usbplugin" width="500" height="374" /></a>
+
+Let's get some power.
+
+<iframe width="560" height="345" src="http://www.youtube.com/embed/4GdkdtJwlhc" frameborder="0"></iframe>
+
+The <a href="http://arduino.cc" target="_blank">Arduino</a> app is another matter entirely. Even though the user interface is similar to <a href="http://processing.org" target="_blank">Processing</a>, some of the syntax and commands are similar to a point.
+
+I used the code in class and replaced the port numbers since I was using different ones than the ones in class. I learned the important part was to keep it simple and understand the logic of the board and it's there!
+
+<strong>BLINK THAT LIGHT</strong>
+
+The trick to making the LED blink is all in code using the "delay(x)" .
+
+<iframe width="560" height="345" src="http://www.youtube.com/embed/1GP_inWBric" frameborder="0"></iframe>
+
+<strong>SWITCH</strong>
+
+The switch was more challenging than the earlier two.
+
+<a title="toocomplicated by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130996962/"><img src="http://farm7.static.flickr.com/6210/6130996962_9ce5199f51.jpg" alt="toocomplicated" width="500" height="374" /></a>
+
+Now this needed a little more patience since I was adding another item which is the switch that needed a separate command for the microcontroller to command.
+
+I ended up with this board.
+
+<a title="onemoretime by mdelamerced, on Flickr" href="http://www.flickr.com/photos/mdelamerced/6130997196/"><img src="http://farm7.static.flickr.com/6202/6130997196_4c3651d117.jpg" alt="onemoretime" width="500" height="374" /></a>
+
+<iframe width="560" height="345" src="http://www.youtube.com/embed/LZzO9Hz6Svk" frameborder="0"></iframe>
+
+And there you have it! A working switch. I'll toy around with kit some more over the weekend but it's great building something with your hands or in this case my hands and the computer.</p>
